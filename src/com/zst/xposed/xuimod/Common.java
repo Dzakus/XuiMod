@@ -8,6 +8,8 @@ import android.content.Intent;
 
 public class Common {
 
+	public static final boolean DEBUG = BuildConfig.DEBUG & false;
+	
 	public static final String MY_PACKAGE_NAME = Common.class.getPackage().getName();
 	public static final String ACTION_SETTINGS_CHANGED = "com.zst.xposed.xuimod.SETTINGS_CHANGED";
 	
@@ -77,8 +79,6 @@ public class Common {
 	
 	public static final int LIMIT_MAX_BATTERYBAR_HEIGHT = 25;
 	public static final int LIMIT_MIN_BATTERYBAR_HEIGHT = 1;
-
-	public static final boolean TEST_FREATURE = true;
 	
 	public static void settingsChanged(Context ctx){
 		Intent i = new Intent(Common.ACTION_SETTINGS_CHANGED);

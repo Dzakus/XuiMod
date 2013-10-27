@@ -17,8 +17,7 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-@SuppressLint("WorldReadableFiles")
-@SuppressWarnings("deprecation")
+
 public class SettingActivity extends PreferenceActivity implements
 		OnPreferenceClickListener, OnSharedPreferenceChangeListener {
 	public static final String TAG = SettingActivity.class.getSimpleName();
@@ -26,6 +25,8 @@ public class SettingActivity extends PreferenceActivity implements
 	public static final String PREFERENCE_FILE = Common.MY_PACKAGE_NAME
 			+ "_preferences";
 
+	@SuppressLint("WorldReadableFiles")
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

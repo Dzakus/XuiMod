@@ -1,6 +1,5 @@
 package com.zst.xposed.xuimod.mods;
 
-
 import java.lang.reflect.Method;
 
 import android.content.Context;
@@ -20,7 +19,11 @@ import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedBridge;
 
+
 public class ListViewAnimationMod {
+	@SuppressWarnings("unused")
+	private static final String TAG = ListViewAnimationMod.class.getSimpleName();
+	
 	public static final int ANIMATION_NONE = 0;
 	public static final int ANIMATION_WAVE_LEFT = 1;
 	public static final int ANIMATION_WAVE_RIGHT = 2;
@@ -44,27 +47,24 @@ public class ListViewAnimationMod {
 	public static final int INTERPOLATOR_BOUNCE = 7;
 	public static final int INTERPOLATOR_CYCLE = 8;
 	public static final int INTERPOLATOR_LINEAR = 9;
+
 	
 	static boolean mIsScrolling;
 	static int mWidth, mHeight = 0;
 	static int mvPosition;
 	private static XSharedPreferences mPref;
 	private static int mInterpolator;
-	private static int cache;
 	private static int mAnim;
 	private static int mDuration;
 
 	public static void handleLoadPackage(XSharedPreferences pref) {
 		mPref = pref;
-		mInterpolator = Integer.parseInt(mPref.getString(Common.KEY_LISTVIEW_INTERPOLATOR, Common.DEFAULT_LISTVIEW_INTERPOLATOR) );
-		mDuration = mPref.getInt(Common.KEY_LISTVIEW_DURATION, Common.DEFAULT_LISTVIEW_DURATION);
-		mAnim = Integer.parseInt(mPref.getString(Common.KEY_LISTVIEW_ANIMATION, Common.DEFAULT_LISTVIEW_ANIMATION) );
-		// Get our pref value in String and parse to Integer
 		initAbsListView();
 		on_Layout();
 		reportScrollStateChange();
 		obtainView();
 	}
+
 	private static void initAbsListView() { 
 		XposedBridge.hookAllMethods(AbsListView.class, "initAbsListView", new XC_MethodHook(){
 			@Override 
@@ -95,7 +95,7 @@ public class ListViewAnimationMod {
 			}			
 		});	
 	}
-	
+
 	private static void obtainView(){ 
 		XposedBridge.hookAllMethods(AbsListView.class, "obtainView", new XC_MethodHook(){
 			@Override protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -226,5 +226,12 @@ public class ListViewAnimationMod {
 			view.startAnimation(anim);
 		}
 		return view;
+	}
+	
+	public static void loadPreference(){
+		
+		mInterpolator = Integer.parseInt(mPref.getString(Common.KEY_LISTVIEW_INTERPOLATOR, Common.DEFAULT_LISTVIEW_INTERPOLATOR) );
+		mDuration = mPref.getInt(Common.KEY_LISTVIEW_DURATION, Common.DEFAULT_LISTVIEW_DURATION);
+		mAnim = Integer.parseInt(mPref.getString(Common.KEY_LISTVIEW_ANIMATION, Common.DEFAULT_LISTVIEW_ANIMATION) );
 	}
 }
