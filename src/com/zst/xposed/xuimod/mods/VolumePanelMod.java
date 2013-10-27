@@ -11,6 +11,7 @@ import com.zst.xposed.xuimod.Common;
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedBridge;
+import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 
 public class VolumePanelMod {
@@ -34,7 +35,8 @@ public class VolumePanelMod {
 			protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
 				mPref = new XSharedPreferences(Common.MY_PACKAGE_NAME);
 				Handler h = (Handler) param.thisObject;
-				Dialog mDialog = (Dialog) Common.getReflection(h, "mDialog");
+				
+				Dialog mDialog = (Dialog) XposedHelpers.getObjectField(h, "mDialog");
 				Window window = mDialog.getWindow();
 
 				/* Set Transparency */

@@ -85,33 +85,5 @@ public class Common {
 		ctx.sendBroadcast(i);
 	}
 	
-	/* Helper Methods */
-	public static Object getReflection(Object itemToGetObject , String objectName){
-		try {
-		Class<?> clazz = itemToGetObject.getClass();
-		Field field;
-		field = clazz.getDeclaredField(objectName);
-		field.setAccessible(true);
-		return field.get(itemToGetObject);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	/*
-	 * @param return true when successful
-	 */
-	public static boolean setReflection(Object itemToGetObject , String objectName , Object newValue){
-		try {
-		Class<?> clazz = itemToGetObject.getClass();
-		Field field;
-		field = clazz.getDeclaredField(objectName);
-		field.setAccessible(true);
-		field.set(itemToGetObject, newValue);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
+
 }
